@@ -1,0 +1,18 @@
+#ifndef _USART_H
+#define _USART_H
+
+#include "pbdata.h"
+
+static void usartGPIOConfigure(void);
+
+static void usartConfigure(void);
+
+static void usartRccInit(void);
+
+static void nivcConfiguration(void);
+
+extern void sendDataFunction(void);
+
+extern void usartInit(void); 
+
+#endif

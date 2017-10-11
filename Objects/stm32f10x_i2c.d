@@ -1,0 +1,10 @@
+.\objects\stm32f10x_i2c.o: lib\src\stm32f10x_i2c.c
+.\objects\stm32f10x_i2c.o: .\lib\inc\stm32f10x_i2c.h
+.\objects\stm32f10x_i2c.o: .\system\stm32f10x.h
+.\objects\stm32f10x_i2c.o: .\system\core_cm3.h
+.\objects\stm32f10x_i2c.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\stm32f10x_i2c.o: .\system\system_stm32f10x.h
+.\objects\stm32f10x_i2c.o: .\lib\inc\stm32f10x_conf.h
+.\objects\stm32f10x_i2c.o: .\lib\inc\stm32f10x_gpio.h
+.\objects\stm32f10x_i2c.o: .\system\stm32f10x.h
+.\objects\stm32f10x_i2c.o: .\lib\inc\stm32f10x_rcc.h
