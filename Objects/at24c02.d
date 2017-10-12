@@ -3,7 +3,7 @@
 .\objects\at24c02.o: user\pbdata.h
 .\objects\at24c02.o: .\system\stm32f10x.h
 .\objects\at24c02.o: .\system\core_cm3.h
-.\objects\at24c02.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\at24c02.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\at24c02.o: .\system\system_stm32f10x.h
 .\objects\at24c02.o: .\lib\inc\stm32f10x_conf.h
 .\objects\at24c02.o: .\lib\inc\stm32f10x_gpio.h
@@ -17,12 +17,12 @@
 .\objects\at24c02.o: .\lib\inc\stm32f10x_i2c.h
 .\objects\at24c02.o: .\lib\inc\stm32f10x_can.h
 .\objects\at24c02.o: .\lib\inc\stm32f10x_dma.h
-.\objects\at24c02.o: D:\killForArm\ARM\ARMCC\Bin\..\include\string.h
-.\objects\at24c02.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\at24c02.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\at24c02.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\at24c02.o: user\led.h
 .\objects\at24c02.o: user\pbdata.h
 .\objects\at24c02.o: user\usart.h
-.\objects\at24c02.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\at24c02.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 .\objects\at24c02.o: user\tim.h
 .\objects\at24c02.o: user\spi.h
 .\objects\at24c02.o: user\iic.h

@@ -3,42 +3,56 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: ¦ÌVision V5.23.0.0
+IDE-Version: ¦ÌVision V5.24.2.0
 Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: yangfengfeng yangfengfeng, genren, LIC=Q7GJJ-UJPVS-04WSQ-NAD7P-EVBYN-681AL
+License Information: yang yang, geren, LIC=GE7BS-LENZV-78GFD-8HZU4-WUZX4-6S4S1
  
 Tool Versions:
-Toolchain:       MDK-ARM Professional  Version: 5.23
-Toolchain Path:  D:\killForArm\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.06 update 4 (build 422)
-Assembler:       Armasm.exe V5.06 update 4 (build 422)
-Linker/Locator:  ArmLink.exe V5.06 update 4 (build 422)
-Library Manager: ArmAr.exe V5.06 update 4 (build 422)
-Hex Converter:   FromElf.exe V5.06 update 4 (build 422)
-CPU DLL:         SARMCM3.DLL V5.23
-Dialog DLL:      DCM.DLL V1.15.0.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.18.0
-Dialog DLL:      TCM.DLL V1.27.0.0
+Toolchain:       MDK-ARM Professional  Version: 5.24.1
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 5 (build 528)
+Assembler:       Armasm.exe V5.06 update 5 (build 528)
+Linker/Locator:  ArmLink.exe V5.06 update 5 (build 528)
+Library Manager: ArmAr.exe V5.06 update 5 (build 528)
+Hex Converter:   FromElf.exe V5.06 update 5 (build 528)
+CPU DLL:         SARMCM3.DLL V5.24.1
+Dialog DLL:      DCM.DLL V1.16.0.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.1.0
+Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
-E:\Workplace\stm32\uart\18b20.uvprojx
-Project File Date:  09/03/2017
+D:\FaChen\project\git\arm\usart\18b20.uvprojx
+Project File Date:  10/12/2017
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 4 (build 422)', folder: 'D:\killForArm\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling usart.c...
+compiling main.c...
+user\main.c(29): warning:  #177-D: variable "tmpstr"  was declared but never referenced
+  	uint8_t tmpstr[6];
+user\main.c(73): warning:  #223-D: function "loopback_tcps" declared implicitly
+  		loopback_tcps(0, buf, 5000);
+user\main.c(48): warning:  #177-D: variable "dat"  was declared but never referenced
+  	u16 dat = 0;
+user\main.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=11712 RO-data=336 RW-data=72 ZI-data=7752  
+Program Size: Code=12024 RO-data=336 RW-data=112 ZI-data=5192  
 FromELF: creating hex file...
-".\Objects\18b20.axf" - 0 Error(s), 0 Warning(s).
+".\Objects\18b20.axf" - 0 Error(s), 3 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.2.0.pack
+                Keil.STM32F1xx_DFP.2.2.0
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\_Target_1
-  D:\killForArm\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include
+  C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

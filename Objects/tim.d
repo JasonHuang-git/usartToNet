@@ -3,7 +3,7 @@
 .\objects\tim.o: user\pbdata.h
 .\objects\tim.o: .\system\stm32f10x.h
 .\objects\tim.o: .\system\core_cm3.h
-.\objects\tim.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\tim.o: .\system\system_stm32f10x.h
 .\objects\tim.o: .\lib\inc\stm32f10x_conf.h
 .\objects\tim.o: .\lib\inc\stm32f10x_gpio.h
@@ -17,12 +17,15 @@
 .\objects\tim.o: .\lib\inc\stm32f10x_i2c.h
 .\objects\tim.o: .\lib\inc\stm32f10x_can.h
 .\objects\tim.o: .\lib\inc\stm32f10x_dma.h
-.\objects\tim.o: D:\killForArm\ARM\ARMCC\Bin\..\include\string.h
-.\objects\tim.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\tim.o: .\Ethernet\wizchip_conf.h
+.\objects\tim.o: .\Ethernet\W5500/w5500.h
+.\objects\tim.o: .\Ethernet\wizchip_conf.h
 .\objects\tim.o: user\led.h
 .\objects\tim.o: user\pbdata.h
 .\objects\tim.o: user\usart.h
-.\objects\tim.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 .\objects\tim.o: user\tim.h
 .\objects\tim.o: user\spi.h
 .\objects\tim.o: user\iic.h

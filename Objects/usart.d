@@ -3,7 +3,7 @@
 .\objects\usart.o: user\pbdata.h
 .\objects\usart.o: .\system\stm32f10x.h
 .\objects\usart.o: .\system\core_cm3.h
-.\objects\usart.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\usart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\usart.o: .\system\system_stm32f10x.h
 .\objects\usart.o: .\lib\inc\stm32f10x_conf.h
 .\objects\usart.o: .\lib\inc\stm32f10x_gpio.h
@@ -17,8 +17,11 @@
 .\objects\usart.o: .\lib\inc\stm32f10x_i2c.h
 .\objects\usart.o: .\lib\inc\stm32f10x_can.h
 .\objects\usart.o: .\lib\inc\stm32f10x_dma.h
-.\objects\usart.o: D:\killForArm\ARM\ARMCC\Bin\..\include\string.h
-.\objects\usart.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\usart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\usart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\usart.o: .\Ethernet\wizchip_conf.h
+.\objects\usart.o: .\Ethernet\W5500/w5500.h
+.\objects\usart.o: .\Ethernet\wizchip_conf.h
 .\objects\usart.o: user\led.h
 .\objects\usart.o: user\pbdata.h
 .\objects\usart.o: user\usart.h
@@ -28,4 +31,4 @@
 .\objects\usart.o: user\iicSimulator.h
 .\objects\usart.o: user\at24c02.h
 .\objects\usart.o: user\can.h
-.\objects\usart.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\usart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

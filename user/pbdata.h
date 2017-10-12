@@ -13,6 +13,7 @@
 #include "stm32f10x_dma.h"
 #include <string.h>
 #include "stdio.h"
+#include "wizchip_conf.h"
 
 #define true  (u8)1
 #define false (u8)0

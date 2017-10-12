@@ -3,7 +3,7 @@
 .\objects\iic.o: user\pbdata.h
 .\objects\iic.o: .\system\stm32f10x.h
 .\objects\iic.o: .\system\core_cm3.h
-.\objects\iic.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\iic.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\iic.o: .\system\system_stm32f10x.h
 .\objects\iic.o: .\lib\inc\stm32f10x_conf.h
 .\objects\iic.o: .\lib\inc\stm32f10x_gpio.h
@@ -17,12 +17,12 @@
 .\objects\iic.o: .\lib\inc\stm32f10x_i2c.h
 .\objects\iic.o: .\lib\inc\stm32f10x_can.h
 .\objects\iic.o: .\lib\inc\stm32f10x_dma.h
-.\objects\iic.o: D:\killForArm\ARM\ARMCC\Bin\..\include\string.h
-.\objects\iic.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\iic.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\iic.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\iic.o: user\led.h
 .\objects\iic.o: user\pbdata.h
 .\objects\iic.o: user\usart.h
-.\objects\iic.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\iic.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 .\objects\iic.o: user\tim.h
 .\objects\iic.o: user\spi.h
 .\objects\iic.o: user\iic.h

@@ -8,18 +8,6 @@ int fputc(int ch,FILE *f)
 	return ch;
 }
 
-void keyInit()
-{	
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
-	
-	GPIO_InitTypeDef gpio_init;
-	gpio_init.GPIO_Pin = GPIO_Pin_1 | GPIO_Pin_5;
-	gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
-	gpio_init.GPIO_Mode = GPIO_Mode_IPU;
-	
-	GPIO_Init(GPIOC, &gpio_init);
-}
-
 void ExtiConfiguration(void)
 {
 	EXTI_InitTypeDef exti_init;
@@ -36,9 +24,30 @@ void ExtiConfiguration(void)
 	EXTI_Init(&exti_init);
 }
 
+void network_Init(void)
+{
+	uint8_t tmpstr[6];
+	uint8_t ip[] = {192,168,1,254};
+	uint8_t gw[] = {192,168,1,1};
+	uint8_t sn[] = {255,255,255,255};
+	uint8_t mac[] = {0x86, 0x6b, 0x58, 0x46, 0x6a, 0xf5};
+	wiz_NetInfo gWIZNETINFO;
+	for(int i = 0; i < 4; i++){
+		gWIZNETINFO.ip[i] = ip[i];
+		gWIZNETINFO.gw[i] = gw[i];
+		gWIZNETINFO.sn[i] = sn[i];
+	}
+	for(int i = 0; i < 6; i++){
+		gWIZNETINFO.mac[i] = mac[i];
+	}
+	ctlnetwork(CN_SET_NETINFO, (void*)&gWIZNETINFO);
+}
+
 int main(void)
 {	
 	u16 dat = 0;
+	
+	uint8_t buf[1024] = {'\0'};
 	
 	SystemInit();
 	
@@ -46,37 +55,22 @@ int main(void)
 		
 	ledInit();
 	
-	keyInit();
-	
 	tim3Init();
 	
 	usartInit();
 	
 	spiInit();
 	
-//	iicInit();
-	iicSimulatorInit();
-	
-	canInit();
-	
 	delay_ms(5000);
 	
-	ledOff();
+	ledOn();
 	
-	AT24Cxx_WriteTwoByte(20, 0x3245);
+	reg_SPI_W5500();
+	
+	network_Init();
 	
 	while(true){
-		if(GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_1) == Bit_RESET){
-			canWrite("can");
-//			printf("m");
-//			printf("d");
-//			printf("1");
-//			delay_ms(1000);
-			ledOn();
-		}
-		else {
-			ledOff();
-		}
+		loopback_tcps(0, buf, 5000);
 	}
 	
 //	writeData("hello iic", strlen("hello iic"), 0);

@@ -2,7 +2,7 @@
 .\objects\stm32f10x_rcc.o: .\lib\inc\stm32f10x_rcc.h
 .\objects\stm32f10x_rcc.o: .\system\stm32f10x.h
 .\objects\stm32f10x_rcc.o: .\system\core_cm3.h
-.\objects\stm32f10x_rcc.o: D:\killForArm\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\stm32f10x_rcc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\stm32f10x_rcc.o: .\system\system_stm32f10x.h
 .\objects\stm32f10x_rcc.o: .\lib\inc\stm32f10x_conf.h
 .\objects\stm32f10x_rcc.o: .\lib\inc\stm32f10x_gpio.h

@@ -19,11 +19,11 @@
 ".\objects\usart.o"
 ".\objects\tim.o"
 ".\objects\spi.o"
-".\objects\iic.o"
-".\objects\at24c02.o"
-".\objects\iicsimulator.o"
-".\objects\can.o"
+".\objects\loopback.o"
+".\objects\socket.o"
+".\objects\wizchip_conf.o"
+".\objects\w5500.o"
 --library_type=microlib --strict --scatter ".\Objects\18b20.sct"
---summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\Listings\18b20.map" -o .\Objects\18b20.axf
