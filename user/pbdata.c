@@ -1,6 +1,12 @@
 #include "pbdata.h"
 
-u8 dt=0;
+u8 dt = 0;
+
+_usartListData usart_recvData;
+_usartListData usart_sendData;
+
+_socketListData socket_recvData[8];
+_socketListData socket_sendData[8];
 
 FunctionCode task;
 
@@ -96,4 +102,32 @@ void executeTask(const u8 cmd)
 	case 0x03: task(2, 12);break;
 	case 0x10: task(1, 10);break;
 	}
+}
+
+void usartSaveData(const u8 byte)
+{
+	u16 count = usart_recvData.data[usart_recvData.index + usart_recvData.count].count;
+	usart_recvData.timerFlag = StartRecv;
+	usart_recvData.timerCount = 0;
+	if(count < 512){
+		usart_recvData.data[usart_recvData.index + usart_recvData.count].buf[count] = byte;
+		usart_recvData.data[usart_recvData.index + usart_recvData.count].count++;
+	}
+	else {
+		usart_recvData.timerFlag = FinishRecv;
+	}
+}
+
+void usartSendData(const u8 *buf, const u8 len){
+	int index = usart_sendData.index + usart_sendData.count;
+	if(usart_sendData.index + usart_sendData.count > 7){
+		index = 7 - index;
+	}
+	strncpy((char *)usart_sendData.data[index].buf, (char *)buf, len);
+	usart_sendData.count++;	
+	if(usart_sendData.count >= 8){
+		usart_sendData.count = 0;
+	}
+	
+	
 }

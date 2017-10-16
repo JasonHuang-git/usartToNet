@@ -27,7 +27,7 @@ void spiInit(void){
 void spiGPIOInit(void){
 	//SPI1配置为主模式；
 	GPIO_InitTypeDef gpio_init;
-	gpio_init.GPIO_Pin = GPIO_Pin_4;
+	gpio_init.GPIO_Pin = GPIO_Pin_1;
 	gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
 	gpio_init.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_Init(GPIOA, &gpio_init);
@@ -41,6 +41,8 @@ void spiGPIOInit(void){
 	
 	gpio_init.GPIO_Pin = GPIO_Pin_6;		//MISO输入
 	GPIO_Init(GPIOA, &gpio_init);
+	
+	GPIO_SetBits(GPIOA, GPIO_Pin_1);
 }
 
 void spi2GPIOInit(void){
@@ -200,14 +202,14 @@ void SPI2_IRQHandler(void){
 void SPI_WriteByte(uint8_t data){
 	while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
 	SPI_I2S_SendData(SPI1, data);
-	while(SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET);
+	while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE) == RESET);
 	SPI_I2S_ReceiveData(SPI1);
 }
 
 uint8_t SPI_ReadByte(void){
 	while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
 	SPI_I2S_SendData(SPI1, 0xFF);
-	while(SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET);
+	while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE) == RESET);
 	return SPI_I2S_ReceiveData(SPI1);
 }
 
@@ -220,11 +222,11 @@ void SPI_CrisExit(void){
 }
 
 void SPI_CS_Select(void){
-	GPIO_ResetBits(GPIOA, GPIO_Pin_4);
+	GPIO_ResetBits(GPIOA, GPIO_Pin_1);
 }
 
 void SPI_CS_Deselect(void){
-	GPIO_SetBits(GPIOA, GPIO_Pin_4);
+	GPIO_SetBits(GPIOA, GPIO_Pin_1);
 }
 
 void reg_SPI_W5500(void){

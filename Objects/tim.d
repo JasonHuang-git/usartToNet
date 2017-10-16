@@ -22,6 +22,8 @@
 .\objects\tim.o: .\Ethernet\wizchip_conf.h
 .\objects\tim.o: .\Ethernet\W5500/w5500.h
 .\objects\tim.o: .\Ethernet\wizchip_conf.h
+.\objects\tim.o: .\Ethernet\socket.h
+.\objects\tim.o: user\net.h
 .\objects\tim.o: user\led.h
 .\objects\tim.o: user\pbdata.h
 .\objects\tim.o: user\usart.h

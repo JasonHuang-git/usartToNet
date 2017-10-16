@@ -49,4 +49,11 @@ void tim3NvicConfigure(void)
 void TIM3_IRQHandler(void)
 {
 	TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+	
+	if(usart_recvData.timerFlag == StartRecv){
+		usart_recvData.timerCount++;
+		if(usart_recvData.timerCount > 20){
+			usart_recvData.timerFlag = FinishRecv;
+		}
+	}
 }

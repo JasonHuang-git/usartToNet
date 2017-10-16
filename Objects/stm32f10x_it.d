@@ -22,6 +22,8 @@
 .\objects\stm32f10x_it.o: .\Ethernet\wizchip_conf.h
 .\objects\stm32f10x_it.o: .\Ethernet\W5500/w5500.h
 .\objects\stm32f10x_it.o: .\Ethernet\wizchip_conf.h
+.\objects\stm32f10x_it.o: .\Ethernet\socket.h
+.\objects\stm32f10x_it.o: user\net.h
 .\objects\stm32f10x_it.o: user\led.h
 .\objects\stm32f10x_it.o: user\pbdata.h
 .\objects\stm32f10x_it.o: user\usart.h

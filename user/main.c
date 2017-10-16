@@ -1,4 +1,5 @@
 #include "pbdata.h"
+#include "loopback.h"
 
 int fputc(int ch,FILE *f)
 {
@@ -24,24 +25,10 @@ void ExtiConfiguration(void)
 	EXTI_Init(&exti_init);
 }
 
-void network_Init(void)
-{
-	uint8_t tmpstr[6];
-	uint8_t ip[] = {192,168,1,254};
-	uint8_t gw[] = {192,168,1,1};
-	uint8_t sn[] = {255,255,255,255};
-	uint8_t mac[] = {0x86, 0x6b, 0x58, 0x46, 0x6a, 0xf5};
-	wiz_NetInfo gWIZNETINFO;
-	for(int i = 0; i < 4; i++){
-		gWIZNETINFO.ip[i] = ip[i];
-		gWIZNETINFO.gw[i] = gw[i];
-		gWIZNETINFO.sn[i] = sn[i];
-	}
-	for(int i = 0; i < 6; i++){
-		gWIZNETINFO.mac[i] = mac[i];
-	}
-	ctlnetwork(CN_SET_NETINFO, (void*)&gWIZNETINFO);
-}
+
+
+
+
 
 int main(void)
 {	
@@ -69,25 +56,16 @@ int main(void)
 	
 	network_Init();
 	
-	while(true){
-		loopback_tcps(0, buf, 5000);
+	setKeepAlive(0);
+	
+	setRTR(2000);
+	
+	setRCR(3);
+	
+	
+	
+	while(true){	
+		printf("ret = %d\r\n", loopback_tcps(0, buf, 5000));
+		delay_ms(1000);
 	}
-	
-//	writeData("hello iic", strlen("hello iic"), 0);
-	
-//	while(true){
-//		dat = AT24Cxx_ReadTwoByte(20);
-//		printf("read addr:%d data is %X.\r\n", 20,  dat);
-//		delay_ms(5000);
-//		if(GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_1) == Bit_RESET){
-////			spiWrite("123*");
-//			dat = AT24Cxx_ReadTwoByte(20);
-//			printf("read addr:%d data is %X.\r\n", 20,  dat);
-//			delay_ms(5000);
-//			
-//		}
-//		else {
-//			ledOff();
-//		}
-//	}
 }

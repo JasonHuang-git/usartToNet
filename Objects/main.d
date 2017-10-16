@@ -21,6 +21,8 @@
 .\objects\main.o: .\Ethernet\wizchip_conf.h
 .\objects\main.o: .\Ethernet\W5500/w5500.h
 .\objects\main.o: .\Ethernet\wizchip_conf.h
+.\objects\main.o: .\Ethernet\socket.h
+.\objects\main.o: user\net.h
 .\objects\main.o: user\led.h
 .\objects\main.o: user\pbdata.h
 .\objects\main.o: user\usart.h
@@ -31,3 +33,4 @@
 .\objects\main.o: user\iicSimulator.h
 .\objects\main.o: user\at24c02.h
 .\objects\main.o: user\can.h
+.\objects\main.o: user\loopback.h

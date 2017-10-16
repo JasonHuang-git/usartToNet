@@ -18,6 +18,7 @@ int32_t loopback_tcps(uint8_t sn, uint8_t* buf, uint16_t port)
    switch(getSn_SR(sn))
    {
       case SOCK_ESTABLISHED :
+		 printf("sock established\r\n");
          if(getSn_IR(sn) & Sn_IR_CON)
          {
 #ifdef _LOOPBACK_DEBUG_

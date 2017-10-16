@@ -1,7 +1,9 @@
 #include "usart.h"
 
-static char sendBuf[50];
+static char sendBuf[2048];
 static volatile u8 sendFlag = true;
+
+u8 recvBuf[512];
 
 void usartInit(void)
 {	
@@ -16,6 +18,16 @@ void usartInit(void)
 	usartConfigure();
 	
 	nivcConfiguration();
+	
+	usartDataInit();
+}
+
+void usartDataInit(void){
+	usart_recvData.count = 0;
+	usart_recvData.index = 0;
+	
+	usart_sendData.count = 0;
+	usart_sendData.index = 0;
 }
 
 void usartGPIOConfigure(void)
@@ -111,13 +123,22 @@ void USART1_IRQHandler(void)
 {	
 	if(USART_GetITStatus(USART1,USART_IT_RXNE) != RESET)
 	{
-		USART_SendData(USART1, USART_ReceiveData(USART1));
-		while(USART_GetFlagStatus(USART1,USART_FLAG_TXE)==RESET);
+		usartSaveData(USART_ReceiveData(USART1));		
 	}
 	
 //	if(USART_GetITStatus(USART1, USART_IT_TC) != RESET){
 //		USART_ClearFlag(USART1, USART_FLAG_TC);
 //	}
+}
+
+void sendData(void){
+	if(sendFlag == true && usart_sendData.count != 0){
+		sendFlag = false;
+		strncpy(sendBuf, (char *)usart_sendData.data[usart_sendData.index].buf, usart_sendData.data[usart_sendData.index].count);
+		DMA_Cmd(DMA1_Channel4, DISABLE);
+		DMA_SetCurrDataCounter(DMA1_Channel4, usart_sendData.data[usart_sendData.index].count);
+		DMA_Cmd(DMA1_Channel4, ENABLE);
+	}
 }
 
 void usartPrintf(char *fmt,...)
@@ -138,12 +159,13 @@ void putStr(char *str){
 //		USART_SendData(USART1, *str++);
 //		while(USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET);
 //	}
-	while(!sendFlag);
-	sendFlag = false;
-	strcpy(sendBuf, str);
-	DMA_Cmd(DMA1_Channel4, DISABLE);
-	DMA_SetCurrDataCounter(DMA1_Channel4, strlen(str));
-	DMA_Cmd(DMA1_Channel4, ENABLE);
+	if(sendFlag == true){
+		sendFlag = false;
+		strcpy(sendBuf, str);
+		DMA_Cmd(DMA1_Channel4, DISABLE);
+		DMA_SetCurrDataCounter(DMA1_Channel4, strlen(str));
+		DMA_Cmd(DMA1_Channel4, ENABLE);
+	}
 }
 
 void putChar(char ch){
@@ -159,4 +181,8 @@ void DMA1_Channel4_IRQHandler(void){
 	sendFlag = true;
 	DMA_ClearFlag(DMA1_IT_TC4);
 	DMA_Cmd(DMA1_Channel4, DISABLE);
+	
+	usart_sendData.count--;
+	usart_sendData.index++;
+	sendData();
 }

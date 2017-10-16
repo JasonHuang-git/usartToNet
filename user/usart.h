@@ -5,6 +5,8 @@
 #include "stdio.h"
 #include "stdarg.h"
 
+static void usartDataInit(void);
+
 static void usartGPIOConfigure(void);
 
 static void usartConfigure(void);

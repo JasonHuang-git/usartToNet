@@ -22,6 +22,8 @@
 .\objects\spi.o: .\Ethernet\wizchip_conf.h
 .\objects\spi.o: .\Ethernet\W5500/w5500.h
 .\objects\spi.o: .\Ethernet\wizchip_conf.h
+.\objects\spi.o: .\Ethernet\socket.h
+.\objects\spi.o: user\net.h
 .\objects\spi.o: user\led.h
 .\objects\spi.o: user\pbdata.h
 .\objects\spi.o: user\usart.h

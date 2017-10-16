@@ -22,6 +22,8 @@
 .\objects\usart.o: .\Ethernet\wizchip_conf.h
 .\objects\usart.o: .\Ethernet\W5500/w5500.h
 .\objects\usart.o: .\Ethernet\wizchip_conf.h
+.\objects\usart.o: .\Ethernet\socket.h
+.\objects\usart.o: user\net.h
 .\objects\usart.o: user\led.h
 .\objects\usart.o: user\pbdata.h
 .\objects\usart.o: user\usart.h
