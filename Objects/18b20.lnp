@@ -20,6 +20,7 @@
 ".\objects\tim.o"
 ".\objects\spi.o"
 ".\objects\loopback.o"
+".\objects\net.o"
 ".\objects\socket.o"
 ".\objects\wizchip_conf.o"
 ".\objects\w5500.o"

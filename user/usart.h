@@ -21,6 +21,8 @@ static void dmaRccInit(void);
 
 static void dmaConfiguration(void);
 
+extern void sendData(void);
+
 extern void putChar(char ch);
 
 extern void usartInit(void);

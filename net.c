@@ -1,7 +1,16 @@
 #include "pbdata.h"
 
 void net_Init(void){
+	setNetWorkDefault();
 	
+	setRTR(2000);
+	
+	setRCR(3);
+	
+	for(int i = 0; i < 8; i++){
+		setKeepAlive(i);
+		server_Init(i, Port);
+	}
 }
 
 void setNetWorkDefault(void)
@@ -28,15 +37,15 @@ void setNetWorkDefault(void)
 	
 	ctlwizchip(CW_GET_ID, (void *)tmpstr);
 	
-	printf("MAC: %02X:%02X:%02X:%02X:%02X:%02X\r\n",gWIZNETINFO.mac[0],gWIZNETINFO.mac[1],gWIZNETINFO.mac[2],
+	usartPrintf("MAC: %02X:%02X:%02X:%02X:%02X:%02X\r\n",gWIZNETINFO.mac[0],gWIZNETINFO.mac[1],gWIZNETINFO.mac[2],
           gWIZNETINFO.mac[3],gWIZNETINFO.mac[4],gWIZNETINFO.mac[5]);
-    printf("SIP: %d.%d.%d.%d\r\n", gWIZNETINFO.ip[0],gWIZNETINFO.ip[1],gWIZNETINFO.ip[2],gWIZNETINFO.ip[3]);
-    printf("GAR: %d.%d.%d.%d\r\n", gWIZNETINFO.gw[0],gWIZNETINFO.gw[1],gWIZNETINFO.gw[2],gWIZNETINFO.gw[3]);
-    printf("SUB: %d.%d.%d.%d\r\n", gWIZNETINFO.sn[0],gWIZNETINFO.sn[1],gWIZNETINFO.sn[2],gWIZNETINFO.sn[3]);
-    printf("DNS: %d.%d.%d.%d\r\n", gWIZNETINFO.dns[0],gWIZNETINFO.dns[1],gWIZNETINFO.dns[2],gWIZNETINFO.dns[3]);
+    usartPrintf("SIP: %d.%d.%d.%d\r\n", gWIZNETINFO.ip[0],gWIZNETINFO.ip[1],gWIZNETINFO.ip[2],gWIZNETINFO.ip[3]);
+    usartPrintf("GAR: %d.%d.%d.%d\r\n", gWIZNETINFO.gw[0],gWIZNETINFO.gw[1],gWIZNETINFO.gw[2],gWIZNETINFO.gw[3]);
+    usartPrintf("SUB: %d.%d.%d.%d\r\n", gWIZNETINFO.sn[0],gWIZNETINFO.sn[1],gWIZNETINFO.sn[2],gWIZNETINFO.sn[3]);
+    usartPrintf("DNS: %d.%d.%d.%d\r\n", gWIZNETINFO.dns[0],gWIZNETINFO.dns[1],gWIZNETINFO.dns[2],gWIZNETINFO.dns[3]);
 }
 
-void phy_init(){
+void phy_init(void){
 	uint8_t tmp;
 	uint8_t memsize[2][8] = {{2,2,2,2,2,2,2,2}, {2,2,2,2,2,2,2,2}};
 	
@@ -59,22 +68,21 @@ uint32_t server_Init(uint8_t sn, int port){
 	int32_t ret = 0;
 	if(getSn_SR(sn) == SOCK_CLOSED){
 		if((ret = socket(sn, Sn_MR_TCP, port, 0x00)) != sn){
-			printf("%d:Socket opened failed\r\n", sn);
+			usartPrintf("%d:Socket opened failed\r\n", sn);
 			return ret;
 		}
 	}
 	if(getSn_SR(sn) == SOCK_INIT){
 		if((ret = listen(sn)) != SOCK_OK){
-			printf("%d:Socket Listen failed\r\n", sn);
+			usartPrintf("%d:Socket Listen failed\r\n", sn);
 			return ret;
 		}
 	}
 	return 1;
 }
 
-uint32_t net_SendData(uint8_t sn, uint8_t* buf, uint16_t len){
+int32_t net_SendData(uint8_t sn, uint8_t* buf, uint16_t len){
 	int32_t ret;
-	uint16_t size = 0, sentsize=0;
 
 #ifdef _LOOPBACK_DEBUG_
    uint8_t destip[4];
@@ -84,14 +92,14 @@ uint32_t net_SendData(uint8_t sn, uint8_t* buf, uint16_t len){
    switch(getSn_SR(sn))
    {
       case SOCK_ESTABLISHED :
-		 printf("sock established\r\n");
+//		 printf("sock established\r\n");
          if(getSn_IR(sn) & Sn_IR_CON)
          {
 #ifdef _LOOPBACK_DEBUG_
 			getSn_DIPR(sn, destip);
 			destport = getSn_DPORT(sn);
 
-			printf("%d:Connected - %d.%d.%d.%d : %d\r\n",sn, destip[0], destip[1], destip[2], destip[3], destport);
+//			printf("%d:Connected - %d.%d.%d.%d : %d\r\n",sn, destip[0], destip[1], destip[2], destip[3], destport);
 #endif
 			setSn_IR(sn,Sn_IR_CON);
          }
@@ -109,12 +117,12 @@ uint32_t net_SendData(uint8_t sn, uint8_t* buf, uint16_t len){
 #endif
          if((ret = disconnect(sn)) != SOCK_OK) return ret;
 #ifdef _LOOPBACK_DEBUG_
-         printf("%d:Socket Closed\r\n", sn);
+//         printf("%d:Socket Closed\r\n", sn);
 #endif
          break;
       case SOCK_INIT :
 #ifdef _LOOPBACK_DEBUG_
-    	 printf("%d:Listen, TCP server loopback, port [%d]\r\n", sn, port);
+//    	 printf("%d:Listen, TCP server loopback, port [%d]\r\n", sn, port);
 #endif
          if( (ret = listen(sn)) != SOCK_OK) return ret;
          break;
@@ -133,9 +141,9 @@ uint32_t net_SendData(uint8_t sn, uint8_t* buf, uint16_t len){
    return 1;
 }
 
-uint32_t net_recvData(uint8_t sn, uint8_t *buf, uint16_t len){
+int32_t net_recvData(uint8_t sn, uint8_t *buf){
 	int32_t ret;
-	uint16_t size = 0, sentsize=0;
+	uint16_t size = 0;
 
 #ifdef _LOOPBACK_DEBUG_
    uint8_t destip[4];
@@ -145,14 +153,14 @@ uint32_t net_recvData(uint8_t sn, uint8_t *buf, uint16_t len){
    switch(getSn_SR(sn))
    {
       case SOCK_ESTABLISHED :
-		 printf("sock established\r\n");
+//		 printf("sock established\r\n");
          if(getSn_IR(sn) & Sn_IR_CON)
          {
 #ifdef _LOOPBACK_DEBUG_
 			getSn_DIPR(sn, destip);
 			destport = getSn_DPORT(sn);
 
-			printf("%d:Connected - %d.%d.%d.%d : %d\r\n",sn, destip[0], destip[1], destip[2], destip[3], destport);
+//			printf("%d:Connected - %d.%d.%d.%d : %d\r\n",sn, destip[0], destip[1], destip[2], destip[3], destport);
 #endif
 			setSn_IR(sn,Sn_IR_CON);
          }
@@ -162,7 +170,8 @@ uint32_t net_recvData(uint8_t sn, uint8_t *buf, uint16_t len){
 			ret = recv(sn, buf, size);
 
 			if(ret <= 0) 
-				return ret;      // check SOCKERR_BUSY & SOCKERR_XXX. For showing the occurrence of SOCKERR_BUSY.
+				return -1;      // check SOCKERR_BUSY & SOCKERR_XXX. For showing the occurrence of SOCKERR_BUSY.
+			return ret;
          }
          break;
       case SOCK_CLOSE_WAIT :
@@ -171,12 +180,12 @@ uint32_t net_recvData(uint8_t sn, uint8_t *buf, uint16_t len){
 #endif
          if((ret = disconnect(sn)) != SOCK_OK) return ret;
 #ifdef _LOOPBACK_DEBUG_
-         printf("%d:Socket Closed\r\n", sn);
+//         printf("%d:Socket Closed\r\n", sn);
 #endif
          break;
       case SOCK_INIT :
 #ifdef _LOOPBACK_DEBUG_
-    	 printf("%d:Listen, TCP server loopback, port [%d]\r\n", sn, port);
+//    	 printf("%d:Listen, TCP server loopback, port [%d]\r\n", sn, port);
 #endif
          if( (ret = listen(sn)) != SOCK_OK) return ret;
          break;
@@ -192,5 +201,6 @@ uint32_t net_recvData(uint8_t sn, uint8_t *buf, uint16_t len){
       default:
          break;
    }
-   return 1;
+   return -1;
 }
+

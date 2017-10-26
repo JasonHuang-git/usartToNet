@@ -54,18 +54,12 @@ extern _usartListData usart_recvData;
 extern _usartListData usart_sendData;
 
 typedef struct {
-	u8 buf[2048];
+	u8 buf[1024];
 	u16 count;
 }_socketData;
 
-typedef struct {
-	_socketData buf[8];
-	u8 index;
-	u8 count;
-}_socketListData;
-
-extern _socketListData socket_recvData[8];
-extern _socketListData socket_sendData[8];
+extern _socketData socket_recvData[4];
+extern _socketData socket_sendData[4];
 
 #include "led.h"
 #include "usart.h"
@@ -90,5 +84,11 @@ void delay_us(u32 nus);
 void delay_ms(u16 nms);
 
 extern void usartSaveData(const u8 byte);
+extern void usartSendData(const u8 *buf, const u8 len);
+
+extern void pushSocketSaveData(const uint8_t sn, const char *buf, const uint16_t len);
+extern void popSocketRecvData(const uint8_t sn);
+extern void popSocketSendData(const uint8_t sn);
+extern void socketSendData(const uint8_t sn, const u8 *buf, const u8 len);
 
 #endif

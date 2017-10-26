@@ -12,9 +12,5 @@ extern void spiInit(void);
 extern void spiWrite(const char *p);
 extern void reg_SPI_W5500(void);
 
-static void spi2GPIOInit(void);
-static void spi2Configure(void);
-static void spi2NivcConfiguration(void);
-
 #endif
 

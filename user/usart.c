@@ -1,9 +1,9 @@
 #include "usart.h"
 
-static char sendBuf[2048];
+static char sendBuf[256];
 static volatile u8 sendFlag = true;
 
-u8 recvBuf[512];
+u8 recvBuf[256];
 
 void usartInit(void)
 {	
@@ -138,6 +138,13 @@ void sendData(void){
 		DMA_Cmd(DMA1_Channel4, DISABLE);
 		DMA_SetCurrDataCounter(DMA1_Channel4, usart_sendData.data[usart_sendData.index].count);
 		DMA_Cmd(DMA1_Channel4, ENABLE);
+		
+		usart_sendData.data[usart_sendData.index].count = 0;
+		usart_sendData.count--;
+		usart_sendData.index++;
+		if(usart_sendData.index > 7){
+			usart_sendData.index = 0;
+		}
 	}
 }
 
@@ -159,13 +166,15 @@ void putStr(char *str){
 //		USART_SendData(USART1, *str++);
 //		while(USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET);
 //	}
-	if(sendFlag == true){
-		sendFlag = false;
-		strcpy(sendBuf, str);
-		DMA_Cmd(DMA1_Channel4, DISABLE);
-		DMA_SetCurrDataCounter(DMA1_Channel4, strlen(str));
-		DMA_Cmd(DMA1_Channel4, ENABLE);
-	}
+	usartSendData(str, strlen(str));
+	sendData();
+//	if(sendFlag == true){
+//		sendFlag = false;
+//		strcpy(sendBuf, str);
+//		DMA_Cmd(DMA1_Channel4, DISABLE);
+//		DMA_SetCurrDataCounter(DMA1_Channel4, strlen(str));
+//		DMA_Cmd(DMA1_Channel4, ENABLE);
+//	}
 }
 
 void putChar(char ch){
@@ -182,7 +191,5 @@ void DMA1_Channel4_IRQHandler(void){
 	DMA_ClearFlag(DMA1_IT_TC4);
 	DMA_Cmd(DMA1_Channel4, DISABLE);
 	
-	usart_sendData.count--;
-	usart_sendData.index++;
 	sendData();
 }

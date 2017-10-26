@@ -5,8 +5,8 @@ u8 dt = 0;
 _usartListData usart_recvData;
 _usartListData usart_sendData;
 
-_socketListData socket_recvData[8];
-_socketListData socket_sendData[8];
+_socketData socket_recvData[4];
+_socketData socket_sendData[4];
 
 FunctionCode task;
 
@@ -107,9 +107,10 @@ void executeTask(const u8 cmd)
 void usartSaveData(const u8 byte)
 {
 	u16 count = usart_recvData.data[usart_recvData.index + usart_recvData.count].count;
+	usartPrintf("index %d, count:%d, %d", usart_recvData.index, usart_recvData.count, count);
 	usart_recvData.timerFlag = StartRecv;
 	usart_recvData.timerCount = 0;
-	if(count < 512){
+	if(count < 10){
 		usart_recvData.data[usart_recvData.index + usart_recvData.count].buf[count] = byte;
 		usart_recvData.data[usart_recvData.index + usart_recvData.count].count++;
 	}
@@ -120,14 +121,35 @@ void usartSaveData(const u8 byte)
 
 void usartSendData(const u8 *buf, const u8 len){
 	int index = usart_sendData.index + usart_sendData.count;
-	if(usart_sendData.index + usart_sendData.count > 7){
-		index = 7 - index;
+	if(index > 7){
+		index = 7;
 	}
+	printf("index: %d,%d\r\n", index,len);
 	strncpy((char *)usart_sendData.data[index].buf, (char *)buf, len);
+	usart_sendData.data[index].count = len;
 	usart_sendData.count++;	
 	if(usart_sendData.count >= 8){
-		usart_sendData.count = 0;
-	}
-	
-	
+		usart_sendData.count = 8;
+	}	
+}
+
+void pushSocketSaveData(const uint8_t sn, const char *buf, const uint16_t len){
+	int length = socket_recvData[sn].count + len > 1024 ? 1024 - socket_recvData[sn].count : len;
+	strncpy((char *)&socket_recvData[sn].buf[socket_recvData[sn].count], (char *)buf, length);
+	socket_recvData[sn].count += length;
+	usartPrintf("push socket save data: %d", length);
+} 
+
+void popSocketRecvData(const uint8_t sn){
+	socket_recvData[sn].count = 0;
+}
+
+void popSocketSendData(const uint8_t sn){
+	socket_sendData[sn].count = 0;
+}
+
+void socketSendData(const uint8_t sn, const u8 *buf, const u8 len){
+	int length = socket_sendData[sn].count + len > 1024 ? 1024 - socket_sendData[sn].count : len;
+	strncpy((char *)&socket_sendData[sn].buf[socket_sendData[sn].count], (char *)buf, length);
+	socket_sendData[sn].count += length;
 }

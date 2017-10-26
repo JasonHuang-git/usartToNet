@@ -22,34 +22,16 @@ Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
 D:\FaChen\project\git\arm\usart\18b20.uvprojx
-Project File Date:  10/16/2017
+Project File Date:  10/17/2017
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling spi.c...
-user\net.h(6): warning:  #1-D: last line of file ends without a newline
-  #endif
-user\spi.c(3): error:  #147: declaration is incompatible with "int32_t recv(uint8_t, uint8_t *, uint16_t)"  (declared at line 269 of ".\Ethernet\socket.h")
-  static u8 recv[1024] = {'\0'};
-user\spi.c(4): error:  #147: declaration is incompatible with "int32_t send(uint8_t, uint8_t *, uint16_t)"  (declared at line 247 of ".\Ethernet\socket.h")
-  static u8 send[1024] = {'\0'};
-user\spi.c(165): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
-  	strcpy(send, p);
-user\spi.c(239): warning:  #1-D: last line of file ends without a newline
-  	
-user\spi.c(48): warning:  #177-D: function "spi2GPIOInit"  was declared but never referenced
-  void spi2GPIOInit(void){
-user\spi.c(84): warning:  #177-D: function "spi2Configure"  was declared but never referenced
-  void spi2Configure(void){
-user\spi.c(121): warning:  #177-D: function "spi2NivcConfiguration"  was declared but never referenced
-  void spi2NivcConfiguration(void){
-user\spi.c: 6 warnings, 2 errors
-compiling usart.c...
-user\net.h(6): warning:  #1-D: last line of file ends without a newline
-  #endif
-user\usart.c: 1 warning, 0 errors
-".\Objects\18b20.axf" - 2 Error(s), 7 Warning(s).
+compiling pbdata.c...
+linking...
+Program Size: Code=10624 RO-data=336 RW-data=100 ZI-data=19788  
+FromELF: creating hex file...
+".\Objects\18b20.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -63,8 +45,7 @@ Package Vendor: Keil
   C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Target not created.
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
